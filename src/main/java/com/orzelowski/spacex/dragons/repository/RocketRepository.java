@@ -6,34 +6,28 @@ import org.springframework.stereotype.Repository;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Repository
-public class RocketRepository implements LocalRepository<Rocket, UUID> {
-    private final HashMap<UUID, Rocket> data = new HashMap<>();
+public class RocketRepository implements LocalRepository<Rocket, String> {
+    private final HashMap<String, Rocket> data = new HashMap<>();
     @Override
     public List<Rocket> findAll() {
         return data.values().stream().toList();
     }
 
     @Override
-    public Optional<Rocket> findById(UUID id) {
-        return Optional.ofNullable(data.get(id));
+    public Optional<Rocket> findByName(String name) {
+        return Optional.ofNullable(data.get(name));
     }
 
     @Override
     public Rocket save(Rocket entity) {
-        if (entity.getId() != null) {
-            data.put(entity.getId(), entity);
-        } else {
-            entity.setId(UUID.randomUUID());
-            data.put(entity.getId(), entity);
-        }
+        data.put(entity.getName(), entity);
         return entity;
     }
 
     @Override
     public void delete(Rocket entity) {
-        data.remove(entity.getId());
+        data.remove(entity.getName());
     }
 }

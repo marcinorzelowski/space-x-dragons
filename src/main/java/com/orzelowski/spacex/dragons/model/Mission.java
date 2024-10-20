@@ -9,8 +9,11 @@ import java.util.UUID;
 
 @Data
 public class Mission {
-    private UUID id;
     private String name;
     private MissionStatus missionStatus = MissionStatus.SCHEDULED;
     private final Set<Rocket> rockets = new HashSet<>();
+
+    public Mission(String name) {
+        this.name = name;
+    }
 }

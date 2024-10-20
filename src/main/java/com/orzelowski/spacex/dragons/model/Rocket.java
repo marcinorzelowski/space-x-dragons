@@ -7,7 +7,6 @@ import java.util.UUID;
 
 @Data
 public class Rocket {
-    private UUID id;
     private String name;
     private RocketStatus status = RocketStatus.ON_GROUND;
     private Mission mission;

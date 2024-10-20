@@ -5,7 +5,7 @@ import java.util.Optional;
 
 public interface LocalRepository<T, ID> {
     List<T> findAll();
-    Optional<T> findById(ID id);
+    Optional<T> findByName(ID id);
     T save(T entity);
     void delete(T entity);
 

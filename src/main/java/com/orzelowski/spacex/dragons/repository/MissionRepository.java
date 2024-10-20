@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 import java.util.*;
 
 @Repository
-public class MissionRepository implements LocalRepository<Mission, UUID> {
-    private final Map<UUID, Mission> data = new HashMap<>();
+public class MissionRepository implements LocalRepository<Mission, String> {
+    private final Map<String, Mission> data = new HashMap<>();
 
     @Override
     public List<Mission> findAll() {
@@ -16,23 +16,18 @@ public class MissionRepository implements LocalRepository<Mission, UUID> {
     }
 
     @Override
-    public Optional<Mission> findById(UUID id) {
+    public Optional<Mission> findByName(String id) {
         return Optional.ofNullable(data.get(id));
     }
 
     @Override
     public Mission save(Mission entity) {
-        if (entity.getId() != null) {
-            data.put(entity.getId(), entity);
-        } else {
-            entity.setId(UUID.randomUUID());
-            data.put(entity.getId(), entity);;
-        }
+        data.put(entity.getName(), entity);
         return entity;
     }
 
     @Override
     public void delete(Mission entity) {
-        data.remove(entity.getId());
+        data.remove(entity.getName());
     }
 }

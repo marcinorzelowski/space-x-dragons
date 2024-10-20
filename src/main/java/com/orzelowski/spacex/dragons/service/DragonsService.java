@@ -1,6 +1,8 @@
 package com.orzelowski.spacex.dragons.service;
 
 import com.orzelowski.spacex.dragons.enums.MissionStatus;
+import com.orzelowski.spacex.dragons.model.Mission;
+import com.orzelowski.spacex.dragons.model.Rocket;
 import com.orzelowski.spacex.dragons.repository.MissionRepository;
 import com.orzelowski.spacex.dragons.repository.RocketRepository;
 import org.springframework.stereotype.Service;
@@ -18,17 +20,21 @@ public class DragonsService {
         this.rocketRepository = rocketRepository;
     }
 
-    public void createRocket(String rocketName) {
+    public Rocket createRocket(String rocketName) {
+      return null;
+    }
+
+    public void assignRocketToMission(String rocketName, String missionName) {
 
     }
 
-    public void assingRocketToMission(UUID rocketID, UUID missionID) {
+    public void changeRocketStatus(String rocketName, String rocketStatus) {}
 
+    public Mission createMission(String missionName) {
+        return null;
     }
 
-    public void createMission(String missionName) {}
-
-    public void changeMissionStatus(UUID missionID, MissionStatus missionStatus) {}
+    public void changeMissionStatus(String missionName, MissionStatus missionStatus) {}
 
     public String getMissionsSummary() {return "";}
 }
