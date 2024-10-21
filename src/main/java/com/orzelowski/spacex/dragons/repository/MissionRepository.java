@@ -5,6 +5,7 @@ import com.orzelowski.spacex.dragons.model.Mission;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Repository
 public class MissionRepository implements LocalRepository<Mission, String> {
@@ -12,7 +13,7 @@ public class MissionRepository implements LocalRepository<Mission, String> {
 
     @Override
     public List<Mission> findAll() {
-        return data.values().stream().toList();
+        return new ArrayList<>(data.values());
     }
 
     @Override

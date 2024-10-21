@@ -13,9 +13,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -104,6 +101,8 @@ class DragonsServiceTest {
         Assertions.assertAll(() -> {
             assertTrue(mission.getRockets().contains(rocket));
             assertEquals(rocket.getMission(), mission);
+            assertEquals(MissionStatus.IN_PROGRESS, mission.getMissionStatus());
+            assertEquals(RocketStatus.IN_SPACE, rocket.getStatus());
         });
     }
 
@@ -161,13 +160,47 @@ class DragonsServiceTest {
         Assertions.assertAll(() -> {
             assertEquals(MissionStatus.ENDED, updatedMission.getMissionStatus());
             assertEquals(updatedRocket.getStatus(), RocketStatus.ON_GROUND);
+            assertNull(updatedRocket.getMission());
+            assertEquals(0, updatedMission.getRockets().size());
         });
-
     }
 
+    @Test
+    void getMissionsSummary_MissionWithoutRockets_ShouldReturnMissionsSummary() {
+        //Arrange
+        missionRepository.save(new Mission("Mission A"));
 
-    //TODO: write more unit tests, didnt manage due to time capacity.
+        StringBuilder sb = new StringBuilder("Mission A - SCHEDULED - Dragons: 0");
+        sb.append("\n");
 
+        //Act
+        String summary = dragonsService.getMissionsSummary();
 
+        //Assert
+        Assertions.assertAll(() -> {
+            assertEquals(sb.toString(), summary);
+        });
+    }
+
+    @Test
+    void getMissionsSummary_MissionWithRocket_ShouldReturnMissionsSummaryWithRockets() {
+        //Arrange
+        missionRepository.save(new Mission("Mission A"));
+        rocketRepository.save(new Rocket("Rocket A"));
+        dragonsService.assignRocketToMission("Rocket A", "Mission A");
+
+        StringBuilder sb = new StringBuilder("Mission A - IN_PROGRESS - Dragons: 1");
+        sb.append("\n");
+        sb.append("Rocket A - ON_GROUND");
+        sb.append("\n");
+
+        //Act
+        String summary = dragonsService.getMissionsSummary();
+
+        //Assert
+        Assertions.assertAll(() -> {
+            assertEquals(sb.toString(), summary);
+        });
+    }
 
 }
