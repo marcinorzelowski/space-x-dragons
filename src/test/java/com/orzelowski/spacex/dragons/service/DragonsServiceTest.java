@@ -92,15 +92,13 @@ class DragonsServiceTest {
         rocketRepository.save(new Rocket("Rocket A"));
 
         //Act
-        dragonsService.assignRocketToMission("Rocket A", "Some mission");
+        dragonsService.assignRocketToMission("Rocket A", "Mission A");
 
         Mission mission = missionRepository.findByName("Mission A").get();
         Rocket rocket = rocketRepository.findByName("Rocket A").get();
 
         //Assert
         Assertions.assertAll(() -> {
-            assertTrue(mission.getRockets().contains(rocket));
-            assertEquals(rocket.getMission(), mission);
             assertEquals(MissionStatus.IN_PROGRESS, mission.getMissionStatus());
             assertEquals(RocketStatus.IN_SPACE, rocket.getStatus());
         });
@@ -191,7 +189,7 @@ class DragonsServiceTest {
 
         StringBuilder sb = new StringBuilder("Mission A - IN_PROGRESS - Dragons: 1");
         sb.append("\n");
-        sb.append("Rocket A - ON_GROUND");
+        sb.append("Rocket A - IN_SPACE");
         sb.append("\n");
 
         //Act

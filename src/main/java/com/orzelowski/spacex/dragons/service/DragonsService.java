@@ -37,11 +37,14 @@ public class DragonsService {
             mission.getRockets().add(rocket);
             if (mission.getMissionStatus().equals(MissionStatus.SCHEDULED))
                 mission.setMissionStatus(MissionStatus.IN_PROGRESS);
-
+            rocket.setMission(mission);
+            rocket.setStatus(RocketStatus.IN_SPACE);
+            rocketRepository.save(rocket);
+            missionRepository.save(mission);
+        } else {
+            throw new IllegalArgumentException("Rocket status is not ON GROUND");
         }
 
-        rocketRepository.save(rocket);
-        missionRepository.save(mission);
     }
 
     public void changeRocketStatus(String rocketName, RocketStatus rocketStatus) {

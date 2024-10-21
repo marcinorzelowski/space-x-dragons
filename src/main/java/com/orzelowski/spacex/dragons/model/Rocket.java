@@ -2,8 +2,10 @@ package com.orzelowski.spacex.dragons.model;
 
 import com.orzelowski.spacex.dragons.enums.RocketStatus;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.util.UUID;
+import java.util.Objects;
 
 @Data
 public class Rocket {
@@ -14,5 +16,4 @@ public class Rocket {
     public Rocket(String name) {
         this.name = name;
     }
-
 }
