@@ -7,12 +7,6 @@
 - [Features](#features)
 - [Technology Stack](#technology-stack)
 - [Setup and Installation](#setup-and-installation)
-- [How to Build](#how-to-build)
-- [Usage](#usage)
-- [Tests](#tests)
-- [Contributing](#contributing)
-- [Improvements](#improvements)
-- [License](#license)
 
 ---
 
@@ -29,8 +23,10 @@ Project created for showing Java skills.
 - **Backend**: Java (v21), Spring
 - **Tools**: Maven
 
-## Run Tests:
-``mvn test``
+## How to Build:
 
-## Build Project;
+Run tests with:
+``mvn test``
+Build project with:
+
 ``mvn install``
